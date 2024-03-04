@@ -1,0 +1,69 @@
+options:
+    normalization: 0 #if ==0, ps in Cls; if ==1, ps in Dls
+    redshift: './tabulated/redshift.txt'
+
+frequencies:
+  Planck_217:
+    units: 'Jy^2'
+    eff_freq:
+      cib: 217 
+    cc: 1.119
+    SN: 16
+    emissivity:
+      EP_em: './tabulated/em_EP_Planck_217.txt'
+      LP_em: './tabulated/em_LP_Planck_217.txt' 
+  Planck_353:
+    units: 'Jy^2'
+    eff_freq:
+      cib: 353 
+    cc: 1.097
+    SN: 225
+    emissivity:
+      EP_em: './tabulated/em_EP_Planck_353.txt'
+      LP_em: './tabulated/em_LP_Planck_353.txt'  
+  Planck_545:
+    units: 'Jy^2'
+    eff_freq:
+      cib: 545 
+    cc: 1.068
+    SN: 1454
+    emissivity:
+      EP_em: './tabulated/em_EP_Planck_545.txt'
+      LP_em: './tabulated/em_LP_Planck_545.txt'
+  Planck_857:
+      units: 'Jy^2'
+      eff_freq:
+        cib: 857 
+      cc: 0.995
+      SN: 5628
+      emissivity:
+        EP_em: './tabulated/em_EP_Planck_857.txt'
+        LP_em: './tabulated/em_LP_Planck_857.txt'
+
+parameters:
+  cosmology:
+    T_CMB: 2.725
+    c: 299792458.e-3
+    matter_PS: './tabulated/matterPS_Planck18.txt'
+    CMB: './tabulated/CMB_Planck18.txt'
+  clustering:
+    b: 0.53
+    sigma_EP: 0.1
+    sigma_LP: 0.1
+    scale_EP: 20.0
+    scale_LP: 20.0
+    alpha_EP: 1.0
+    alpha_LP: 1.0
+    LogMmin_EP: 12.07
+    LogMmin_LP: 10.8
+  power_spectra:
+    corr01: 1.0
+    corr02: 1.0 #0.9965 #0.9969
+    corr03: 1.0 #1.140 #1.087
+    corr12: 1.0 #1.050 #1.025
+    corr13: 1.0
+  
+    cal0: 1.0
+    cal1: 1.0
+    cal2: 1.0
+    cal3: 1.0

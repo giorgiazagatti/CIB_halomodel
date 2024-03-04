@@ -1,0 +1,90 @@
+options:
+    CIB_only: True   #computation of the CIB terms only
+    normalization: 0 #if ==0, ps in Cls; if ==1, ps in Dls
+    shot: 1          #if ==0, shot noise SPT-like; if ==1, shot noise SPIRE-like
+    redshift: './tabulated/redshift.txt'
+
+frequencies:
+  Planck_353:
+    units: 'Jy^2'
+    eff_freq:
+      tSZ: 123
+      radio: 123
+      cirrus: 123
+      cib: 353 
+      cmb: 123
+    cc: 1.097
+    emissivity:
+      EP_em: './tabulated/em_EP_Planck_353.txt'
+      LP_em: './tabulated/em_LP_Planck_353.txt'  
+  Planck_545:
+    units: 'Jy^2'
+    eff_freq:
+      tSZ: 123
+      radio: 123
+      cirrus: 123
+      cib: 545 
+      cmb: 123
+    cc: 1.068
+    emissivity:
+      EP_em: './tabulated/em_EP_Planck_545.txt'
+      LP_em: './tabulated/em_LP_Planck_545.txt'
+  Planck_857:
+      units: 'Jy^2'
+      eff_freq:
+        tSZ: 123
+        radio: 123
+        cirrus: 123
+        cib: 857 
+        cmb: 123
+      cc: 0.995
+      emissivity:
+        EP_em: './tabulated/em_EP_Planck_857.txt'
+        LP_em: './tabulated/em_LP_Planck_857.txt'
+
+parameters:
+  cosmology:
+    T_CMB: 2.725
+    c: 299792458.e-3
+    matter_PS: './tabulated/matterPS_Planck18.txt'
+    CMB: './tabulated/CMB_Planck18.txt'
+  fixed_param:
+    alpha_EP: 1.0
+    T_CMB: 2.725
+    sigma_EP: 0.1
+    sigma_LP: 0.1
+    scale_EP: 20.0
+    scale_LP: 20.0
+    nu0_tsz: 153.1
+    nu0_radio: 150.2
+    T_cirrus: 17.6
+    nu0_cirrus: 220
+    nu0_cmb: 150.0
+    nu0_dust: 153.8
+    T_dust: 20
+    A_cirrus: 0.65
+    alpha_cirrus: -3.2
+    beta_cirrus: 1.8
+    alpha_radio: -0.945
+    corr12: 1.0 #0.9965 #0.9969
+    corr13: 1.0 #1.140 #1.087
+    corr23: 1.0 #1.050 #1.025
+  var_param:
+    b: 0.53
+    A_poisson: 9.16
+    beta_poisson: 1.505
+    A_radio: 1.06
+    A_kSZ: 3.2
+  fit_param:
+    LogMmin_EP: 12.07
+    LogMmin_LP: 10.8
+    alpha_LP: 1.0
+    shot0: 225
+    shot1: 1454
+    shot2: 5628
+    cal0: 1.0
+    cal1: 1.0
+    cal2: 1.0
+    #corr12: 1.0
+    #corr13: 1.0
+    #corr23: 1.0
