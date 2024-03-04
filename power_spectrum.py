@@ -16,7 +16,7 @@ class foregrounds:
         instance_HOD,
         instance_200,
         dV_dz,
-        shot_spire,
+        shot_noise,
         emission
     ):
 
@@ -29,7 +29,7 @@ class foregrounds:
         self.instance_HOD      = instance_HOD
         self.instance_200      = instance_200
         self.dV_dz             = dV_dz
-        self.shot_spire        = shot_spire
+        self.shot_noise        = shot_noise
         self.emission          = emission
 
 
@@ -162,14 +162,14 @@ class foregrounds:
 
         return Cl_1h_EP, Cl_2h_EP, Cl_1h_LP, Cl_2h_LP, Cl_1h_mix, Cl_2h_mix
 
-    def CIB_poisson_spire(self):
+    def CIB_poisson(self):
         cl_cibp_spire = np.zeros([self.emission.n_spec, len(self.ell)])
         spec = 0
         for nu1 in range(self.emission.n_nu):
             for nu2 in range(nu1, self.emission.n_nu):
                 #shot_noise = np.ones(len(self.ell))
-                cl_cibp_spire[spec, :] = self.shot_correlations[nu1, nu2] * np.sqrt(
-                    self.shot_spire[nu1] * self.shot_spire[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * np.sqrt(self.color_corr[nu1] * self.color_corr[nu2])
+                cl_cibp[spec, :] = self.shot_correlations[nu1, nu2] * np.sqrt(
+                    self.shot_noise[nu1] * self.shot_noise[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * np.sqrt(self.color_corr[nu1] * self.color_corr[nu2])
                 )  # *1./self.conversion[nu1]*1./self.conversion[nu2]
                 spec = spec + 1
-        return cl_cibp_spire
+        return cl_cibp
