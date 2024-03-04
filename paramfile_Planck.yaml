@@ -58,11 +58,11 @@ parameters:
     LogMmin_LP: 10.8
   power_spectra:
     corr01: 1.0
-    corr02: 1.0 #0.9965 #0.9969
-    corr03: 1.0 #1.140 #1.087
-    corr12: 1.0 #1.050 #1.025
+    corr02: 1.0 
+    corr03: 1.0 
+    corr12: 1.0 
     corr13: 1.0
-  
+    corr23: 1.0
     cal0: 1.0
     cal1: 1.0
     cal2: 1.0
