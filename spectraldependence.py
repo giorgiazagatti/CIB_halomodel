@@ -1,6 +1,10 @@
 import numpy as np
 from scipy import interpolate
 
+k_b = 1.3806503 * 1e-23
+h_pl = 6.626068 * 1e-34
+c = 299792458
+
 class freq_dep:
     def __init__(self, redshift, emissivities, effective_freq, unit, fixed_param):
         self.redshift       = redshift
