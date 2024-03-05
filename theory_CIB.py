@@ -127,11 +127,11 @@ def CIB_powerspectrum(clust_param, PS_param, color_corr):
         calibration_factors = np.array([PS_param['cal0'], PS_param['cal1'], PS_param['cal2'], PS_param['cal3']])
 
     shot_correlations = np.zeros((nnu, nnu))
-        index = 0 
-        for i in range(nnu):
-            for j in range(i, nnu):
-                shot_correlations[i,j] = correlation_array[index]
-                index = index + 1 
+    index = 0 
+    for i in range(nnu):
+        for j in range(i, nnu):
+            shot_correlations[i,j] = correlation_array[index]
+            index = index + 1 
 
 #--------------------------------------------Power spectra computation---------------------------------------------
     spectra = foregrounds(
@@ -173,4 +173,4 @@ def CIB_powerspectrum(clust_param, PS_param, color_corr):
 
     return cib
 
-cl_cib = foregrounds_call(clust_param, PS_param, color_corr)
+cl_cib = CIB_powerspectrum(clust_param, PS_param, color_corr)
