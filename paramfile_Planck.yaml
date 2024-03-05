@@ -46,6 +46,9 @@ parameters:
     c: 299792458.e-3
     matter_PS: './tabulated/matterPS_Planck18.txt'
     CMB: './tabulated/CMB_Planck18.txt'
+  fixed:
+    T_CMB: 2.725
+    nu0_dust: 153.8
   clustering:
     b: 0.53
     sigma_EP: 0.1
