@@ -108,8 +108,8 @@ class foregrounds:
                         * self.instance_HOD.Nsat_LP[np.newaxis, :] +
                         self.instance_HOD.Ncent_LP[np.newaxis,:]
                         * self.instance_HOD.Nsat_EP[np.newaxis,:])
-                        * self.instance_200.u_k[:, :, k]
-                        + self.instance_HOD.Nsat_EP[np.newaxis, :] * self.instance_HOD.Nsat_LP[np.newaxis,:] * self.instance_200.u_k[:, :, k] ** 2 )
+                        * self.instance_200.u_c[:, :, k]
+                        + self.instance_HOD.Nsat_EP[np.newaxis, :] * self.instance_HOD.Nsat_LP[np.newaxis,:] * self.instance_200.u_c[:, :, k] ** 2 )
                     )             
                     
                     intred_2h_EP[k, :] = (
@@ -163,6 +163,15 @@ class foregrounds:
         return Cl_1h_EP, Cl_2h_EP, Cl_1h_LP, Cl_2h_LP, Cl_1h_mix, Cl_2h_mix
 
     def CIB_poisson(self):
+        cf_cib = []
+
+        for nu, i in enumerate(self.emission.unit):
+            if i=='muK^2':
+                cf_cib.append(1 /self.emission.dBdT_num_dust[nu])
+            else:
+                cf_cib.append(1.0)
+        cf_cib = np.array(cf_cib)
+        
         cl_cibp = np.zeros([self.emission.n_spec, len(self.ell)])
         spec = 0
         for nu1 in range(self.emission.n_nu):
