@@ -60,6 +60,7 @@ shot_noise = np.array(shot_noise)
 #------------------------------------------------paramters setting------------------------------------------------
 param               = settings['parameters']
 cosmological_param  = param['cosmology']
+fixed_param         = param['fixed']
 clust_param         = param['clustering']
 PS_param            = param['power_spectra']
 
@@ -100,7 +101,7 @@ M_tilde = 10 ** logmass / B
 #-----------------------------------------Frequency dependence and utils computation-----------------------------------------
 #----------------------------------------------------------------------------------------------------------------------------
 # compute frequency dependence
-emission = freq_dep(redshift, emissivities, effective_freq, unit)
+emission = freq_dep(redshift, emissivities, effective_freq, unit, fixed_param)
 
 #compute utils
 instance_200 = u_p_nfw_hmf_btSZ_bCIB(
