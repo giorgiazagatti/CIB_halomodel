@@ -136,40 +136,37 @@ class foregrounds:
                     Cl_2h_EP[spec, k] = trapz(
                         emission_EP[minred:] * intred_2h_EP[k, minred:],
                         self.redshift[minred:],
-                    ) * cf_cib[nu1] * cf_cib[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * np.sqrt(self.color_corr[nu1] * self.color_corr[nu2]) 
+                    ) * cf_cib[nu1] * cf_cib[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * self.color_corr[nu1] * self.color_corr[nu2] 
                     Cl_1h_EP[spec, k] = trapz(
                         emission_EP[minred:] * intred_1h_EP[k, minred:],
                         self.redshift[minred:],
-                    ) * cf_cib[nu1] * cf_cib[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * np.sqrt(self.color_corr[nu1] * self.color_corr[nu2])
+                    ) * cf_cib[nu1] * cf_cib[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * self.color_corr[nu1] * self.color_corr[nu2]
                     Cl_2h_LP[spec, k] = trapz(
                         emission_LP[minred:] * intred_2h_LP[k, minred:],
                         self.redshift[minred:],
-                    ) * cf_cib[nu1] * cf_cib[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * np.sqrt(self.color_corr[nu1] * self.color_corr[nu2])
+                    ) * cf_cib[nu1] * cf_cib[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * self.color_corr[nu1] * self.color_corr[nu2]
                     Cl_1h_LP[spec, k] = trapz(
                         emission_LP[minred:] * intred_1h_LP[k, minred:],
                         self.redshift[minred:],
-                    ) * cf_cib[nu1] * cf_cib[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * np.sqrt(self.color_corr[nu1] * self.color_corr[nu2])
+                    ) * cf_cib[nu1] * cf_cib[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * self.color_corr[nu1] * self.color_corr[nu2]
                     Cl_2h_mix[spec, k] = trapz(
                         emission_mix[minred:] * intred_2h_mix[k,minred],
                         self.redshift[minred:],
-                    ) * cf_cib[nu1] * cf_cib[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * np.sqrt(self.color_corr[nu1] * self.color_corr[nu2])
+                    ) * cf_cib[nu1] * cf_cib[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * self.color_corr[nu1] * self.color_corr[nu2]
                     Cl_1h_mix[spec, k] = trapz(
                         emission_mix[minred:] * intred_1h_mix[k,minred],
                         self.redshift[minred:],
-                    ) * cf_cib[nu1] * cf_cib[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * np.sqrt(self.color_corr[nu1] * self.color_corr[nu2])
+                    ) * cf_cib[nu1] * cf_cib[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * self.color_corr[nu1] * self.color_corr[nu2]
                     
                 spec = spec + 1
 
         return Cl_1h_EP, Cl_2h_EP, Cl_1h_LP, Cl_2h_LP, Cl_1h_mix, Cl_2h_mix
 
     def CIB_poisson(self):
-        cl_cibp_spire = np.zeros([self.emission.n_spec, len(self.ell)])
+        cl_cibp = np.zeros([self.emission.n_spec, len(self.ell)])
         spec = 0
         for nu1 in range(self.emission.n_nu):
             for nu2 in range(nu1, self.emission.n_nu):
-                #shot_noise = np.ones(len(self.ell))
-                cl_cibp[spec, :] = self.shot_correlations[nu1, nu2] * np.sqrt(
-                    self.shot_noise[nu1] * self.shot_noise[nu2] * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * np.sqrt(self.color_corr[nu1] * self.color_corr[nu2])
-                )  # *1./self.conversion[nu1]*1./self.conversion[nu2]
+                cl_cibp[spec, :] = cf_cib[nu1] * cf_cib[nu2] * self.shot_correlations[nu1, nu2] * np.sqrt(self.shot_noise[nu1] * self.shot_noise[nu2]) * np.sqrt(self.calibration[nu1] * self.calibration[nu2]) * self.color_corr[nu1] * self.color_corr[nu2]
                 spec = spec + 1
         return cl_cibp
