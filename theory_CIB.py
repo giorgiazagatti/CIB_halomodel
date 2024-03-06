@@ -4,7 +4,6 @@
 import numpy as np
 import yaml
 from yaml import SafeLoader
-import csv
 from utils import *
 from HODS_mod import *
 from spectraldependence import *
