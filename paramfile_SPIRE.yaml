@@ -1,0 +1,56 @@
+options:
+  normalization: 0 #if ==0, ps in Cls; if ==1, ps in Dls
+  redshift: './tabulated/redshift.txt'
+
+frequencies:
+  SPIRE_600:
+    units: 'Jy^2'
+    eff_freq:
+      cib: 600.0
+    emissivity:
+      EP_em: './tabulated/em_EP_SPIRE_600.txt'
+      LP_em: './tabulated/em_LP_SPIRE_600.txt'
+    cc: 0.974
+  SPIRE_857:
+    units: 'Jy^2'
+    eff_freq:
+      cib: 857.0
+    emissivity:
+      EP_em: './tabulated/em_EP_SPIRE_857.txt'
+      LP_em: './tabulated/em_LP_SPIRE_857.txt'
+    cc: 0.989
+  SPIRE_1200:
+    units: 'Jy^2'
+    eff_freq:
+      cib: 1200.0
+    emissivity:
+      EP_em: './tabulated/em_EP_SPIRE_1200.txt'
+      LP_em: './tabulated/em_LP_SPIRE_1200.txt'
+    cc: 0.988
+
+parameters:
+  cosmology:
+    T_CMB: 2.725 
+    c: 299792458.e-3 
+    matter_PS: './tabulated/matterPS_Planck18.txt'
+    CMB: './tabulated/CMB_Planck18.txt'
+  fixed_param:
+    T_CMB: 2.725
+    nu0_dust: 153.8 
+  clustering:
+    b: 0.53
+    sigma_EP: 0.1
+    sigma_LP: 0.1
+    scale_EP: 20.0
+    scale_LP: 20.0
+    alpha_EP: 1.0
+    alpha_LP: 1.0
+    LogMmin_EP: 12.07
+    LogMmin_LP: 10.8
+  power_spectra:
+    corr01: 1.0
+    corr02: 1.0  
+    corr12: 1.0 
+    cal0: 1.0
+    cal1: 1.0
+    cal2: 1.0
