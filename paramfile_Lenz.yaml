@@ -1,4 +1,5 @@
 options:
+    read_matterPS: True
     normalization: 0 #if ==0, ps in Cls; if ==1, ps in Dls
     redshift: './tabulated/redshift.txt'
 
@@ -36,7 +37,7 @@ parameters:
     T_CMB: 2.725
     c: 299792458.e-3
     matter_PS: './tabulated/matterPS_Planck18.txt'
-    CMB: './tabulated/CMB_Planck18.txt'
+    user_matterPS:
   fixed:
     T_CMB: 2.725
     nu0_dust: 153.8
