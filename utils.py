@@ -11,7 +11,7 @@ from numpy import trapz
 
 cosmo = Planck18
 
-# usefull conversion factors
+# useful conversion factors
 eV_to_J = 1.6e-19
 cm_to_m = 1e-2
 Mpc_to_m = 3.086e22  # Mpc to m
@@ -21,7 +21,7 @@ Km_to_m = 1e3
 m_e = con.electron_mass  # Kg  9.10938356e-31 Kg
 sig_T = con.physical_constants["Thomson cross section"][0]  # m^2 6.6524587158e-29
 c_light_km_s = 299792458e-3
-c_light_m_s = 299792458
+c_light_m_s  = 299792458
 
 
 class u_p_nfw_hmf_btSZ_bCIB:
@@ -37,8 +37,6 @@ class u_p_nfw_hmf_btSZ_bCIB:
         self.nfw_limb()
         self.compute_hmf()
         self.compute_b_CIB()
-        self.compute_b_tSZ()
-        self.FT_Pe()
 
 
     def mean_density(self):

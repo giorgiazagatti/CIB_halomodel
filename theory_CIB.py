@@ -8,7 +8,7 @@ from utils import *
 from HODS_mod import *
 from spectraldependence import *
 from power_spectrum import *
-#from matterPS import * 
+from matterPS import * 
 from cosmology import *
 
 #----------------------------------------------------------------------------------------------------------------------------
@@ -20,6 +20,7 @@ with open("paramfile_Planck.yaml") as f:
     settings = yaml.load(f, Loader=SafeLoader)
 
 #-----------------------------------------------general settings------------------------------------------------
+read_matterPS = settings['options']['read_matterPS']
 normalization = settings['options']['normalization']
 redshift_path = settings['options']['redshift']
 redshift      = np.loadtxt(redshift_path)
@@ -63,14 +64,18 @@ fixed_param         = param['fixed']
 clust_param         = param['clustering']
 PS_param            = param['power_spectra']
 
-#compute cosmological parameters, matter power spectrum and CMB
+#compute cosmological parameters, matter power spectrum
 cosmo_param = cosmo_param(redshift, cosmological_param, cosmo)
 
-h     = cosmo_param.compute_params()[0]
-dV_dz = cosmo_param.compute_params()[1]
+h, dV_dz = cosmo_param.compute_params()
 
-k_array  = cosmo_param.read_matter_PS()[0]
-Pk_array = cosmo_param.read_matter_PS()[1]
+if read_matterPS == True:
+    k_array, Pk_array = cosmo_param.read_matter_PS()
+else:
+    compute_PS = matter_PS.lin_matter_PS()
+    k_array = compute_PS()[0]
+    Pk_array = cosmo_PS()[2]
+
 
 #----------------------------------------------------------------------------------------------------------------------------
 #-------------------------------------------------------Other settings-------------------------------------------------------
