@@ -4,7 +4,7 @@ options:
   redshift: './tabulated/redshift.txt'
 
 frequencies:
-  SPIRE_600:
+  f600:
     units: 'Jy^2'
     eff_freq:
       cib: 600.0
@@ -12,8 +12,7 @@ frequencies:
       EP_em: './tabulated/em_EP_SPIRE_600.txt'
       LP_em: './tabulated/em_LP_SPIRE_600.txt'
     cc: 0.974
-    SN: 2479
-  SPIRE_857:
+  f857:
     units: 'Jy^2'
     eff_freq:
       cib: 857.0
@@ -21,8 +20,7 @@ frequencies:
       EP_em: './tabulated/em_EP_SPIRE_857.txt'
       LP_em: './tabulated/em_LP_SPIRE_857.txt'
     cc: 0.989
-    SN: 6205
-  SPIRE_1200:
+  f1200:
     units: 'Jy^2'
     eff_freq:
       cib: 1200.0
@@ -30,7 +28,6 @@ frequencies:
       EP_em: './tabulated/em_EP_SPIRE_1200.txt'
       LP_em: './tabulated/em_LP_SPIRE_1200.txt'
     cc: 0.988
-    SN: 9833
 
 parameters:
   cosmology:
@@ -52,9 +49,18 @@ parameters:
     LogMmin_EP: 12.07
     LogMmin_LP: 10.8
   power_spectra:
-    corr01: 1.0
-    corr02: 1.0 
-    corr12: 1.0 
-    cal0: 1.0
-    cal1: 1.0
-    cal2: 1.0
+    shot_noise:
+      SN_f600: 2479
+      SN_f857: 6205
+      SN_f1200: 9833
+    correlations:
+      corr_f600_f600: 1.0
+      corr_f600_f857: 1.0
+      corr_f600_f1200: 1.0
+      corr_f857_f857: 1.0
+      corr_f857_f1200: 1.0
+      corr_f1200_f1200: 1.0
+    calibrations:
+      cal_f600: 1.0
+      cal_f857: 1.0
+      cal_f1200: 1.0

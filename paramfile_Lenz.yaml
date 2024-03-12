@@ -4,30 +4,27 @@ options:
     redshift: './tabulated/redshift.txt'
 
 frequencies:
-  Planck_353:
+  f353:
     units: 'Jy^2'
     eff_freq:
       cib: 353 
     cc: 1.097
-    SN: 225
     emissivity:
       EP_em: './tabulated/em_EP_Planck_353.txt'
       LP_em: './tabulated/em_LP_Planck_353.txt'  
-  Planck_545:
+  f545:
     units: 'Jy^2'
     eff_freq:
       cib: 545 
     cc: 1.068
-    SN: 1454
     emissivity:
       EP_em: './tabulated/em_EP_Planck_545.txt'
       LP_em: './tabulated/em_LP_Planck_545.txt'
-  Planck_857:
+  f857:
       units: 'Jy^2'
       eff_freq:
         cib: 857 
       cc: 0.995
-      SN: 5628
       emissivity:
         EP_em: './tabulated/em_EP_Planck_857.txt'
         LP_em: './tabulated/em_LP_Planck_857.txt'
@@ -52,9 +49,18 @@ parameters:
     LogMmin_EP: 12.07
     LogMmin_LP: 10.8
   power_spectra:
-    corr01: 1.0
-    corr02: 1.0  
-    corr12: 1.0 
-    cal0: 1.0
-    cal1: 1.0
-    cal2: 1.0
+    shot_noise:
+      SN_f353: 225
+      SN_f545: 1454
+      SN_f857: 5628
+    correlations:
+      corr_f353_f353: 1.0 
+      corr_f353_f545: 1.0 
+      corr_f353_f857: 1.0
+      corr_f545_f545: 1.0
+      corr_f545_f857: 1.0
+      corr_f857_f857: 1.0
+    calibrations:
+      cal_f353: 1.0
+      cal_f545: 1.0
+      cal_f857: 1.0
