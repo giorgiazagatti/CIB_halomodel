@@ -34,13 +34,19 @@ else:
 #------------------------------------------expertiment-related features------------------------------------------
 exp_settings   = settings['frequencies']
 
+#Label and count the frequency channels of the selected experiment
+names = []
+for i in exp_settings:
+    names.append(i)
+
+nnu = len(names)
+
 experiments = []
 for i in exp_settings:
     experiments.append(exp_settings[i])
 
 unit           = []
 color_corr     = []
-shot_noise     = []
 effective_freq = []
 emissivities   = []
 for exp in experiments:
@@ -48,14 +54,11 @@ for exp in experiments:
         unit.append(exp['units'])
     if 'cc' in exp:
         color_corr.append(exp['cc'])
-    if 'SN' in exp:
-        shot_noise.append(exp['SN'])
     if 'eff_freq' in exp:
         effective_freq.append(exp['eff_freq'])
     if 'emissivity' in exp:
         emissivities.append(exp['emissivity'])
 color_corr = np.array(color_corr)
-shot_noise = np.array(shot_noise)
 
 #------------------------------------------------paramters setting------------------------------------------------
 param               = settings['parameters']
@@ -117,15 +120,28 @@ def CIB_powerspectrum(clust_param, PS_param, color_corr):
     instance_HOD = hod_ngal(mh, redshift, clust_param, instance_200)
 
 #------------------------------------------Calibration and correlations-------------------------------------------
-    nnu          = len(effective_freq)
-    nspec        = int(nnu * (nnu - 1) / 2 + nnu)
-
-    if nnu == 3:
-        correlation_array = np.array([1., PS_param['corr01'], PS_param['corr02'], 1., PS_param['corr12'], 1.])
-        calibration_factors = np.array([PS_param['cal0'], PS_param['cal1'], PS_param['cal2']])
-    else:
-        correlation_array = np.array([1., PS_param['corr01'], PS_param['corr02'], PS_param['corr03'], 1., PS_param['corr12'], PS_param['corr13'], 1., PS_param['corr23'], 1.])
-        calibration_factors = np.array([PS_param['cal0'], PS_param['cal1'], PS_param['cal2'], PS_param['cal3']])
+    shot_param = PS_param['shot_noise']
+    corr_param = PS_param['correlations']
+    cal_param  = PS_param['calibrations']
+    
+    shot_noise = []
+    correlation_array = []
+    calibration_factors = []
+    
+    for freq in names:
+        if 'SN_'+freq in shot_param:
+            shot_noise.append(shot_param['SN_'+freq])
+        if 'cal_'+freq in cal_param:
+            calibration_factors.append(cal_param['cal_'+freq])
+            
+    for freq1 in range(nnu):
+        for freq2 in range(freq1, nnu):
+            if 'corr_'+names[freq1]+'_'+names[freq2] in corr_param:
+                correlation_array.append(corr_param['corr_'+names[freq1]+'_'+names[freq2]])
+    print(len(shot_noise))
+    print(len(calibration_factors))
+    print(len(correlation_array))
+    print(correlation_array)
 
     shot_correlations = np.zeros((nnu, nnu))
     index = 0 
