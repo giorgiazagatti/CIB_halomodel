@@ -12,6 +12,7 @@ frequencies:
       EP_em: './tabulated/em_EP_SPIRE_600.txt'
       LP_em: './tabulated/em_LP_SPIRE_600.txt'
     cc: 0.974
+    SN: 2479
   SPIRE_857:
     units: 'Jy^2'
     eff_freq:
@@ -20,6 +21,7 @@ frequencies:
       EP_em: './tabulated/em_EP_SPIRE_857.txt'
       LP_em: './tabulated/em_LP_SPIRE_857.txt'
     cc: 0.989
+    SN: 6205
   SPIRE_1200:
     units: 'Jy^2'
     eff_freq:
@@ -28,16 +30,17 @@ frequencies:
       EP_em: './tabulated/em_EP_SPIRE_1200.txt'
       LP_em: './tabulated/em_LP_SPIRE_1200.txt'
     cc: 0.988
+    SN: 9833
 
 parameters:
   cosmology:
-    T_CMB: 2.725 
-    c: 299792458.e-3 
+    T_CMB: 2.725
+    c: 299792458.e-3
     matter_PS: './tabulated/matterPS_Planck18.txt'
     user_matterPS:
-  fixed_param:
+  fixed:
     T_CMB: 2.725
-    nu0_dust: 153.8 
+    nu0_dust: 153.8
   clustering:
     b: 0.53
     sigma_EP: 0.1
@@ -50,7 +53,7 @@ parameters:
     LogMmin_LP: 10.8
   power_spectra:
     corr01: 1.0
-    corr02: 1.0  
+    corr02: 1.0 
     corr12: 1.0 
     cal0: 1.0
     cal1: 1.0
