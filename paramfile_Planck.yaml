@@ -1,5 +1,5 @@
 options:
-    read_matterPS: False #if True, reads pre-computed linear matter PS
+    read_matterPS: True #if True, reads pre-computed linear matter PS
                         #if False, computes the linear matter PS using CAMB
     normalization: 0    #if ==0, power spectra in Cls
                         #if ==1, ps in Dls
