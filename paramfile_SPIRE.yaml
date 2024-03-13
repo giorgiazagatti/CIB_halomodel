@@ -1,10 +1,12 @@
 options:
-  read_matterPS: True
-  normalization: 0 #if ==0, ps in Cls; if ==1, ps in Dls
-  redshift: './tabulated/redshift.txt'
+    read_matterPS: True #if True, reads pre-computed linear matter PS
+                        #if False, computes the linear matter PS using CAMB
+    normalization: 0    #if ==0, power spectra in Cls
+                        #if ==1, ps in Dls
+    redshift: './tabulated/redshift.txt'
 
 frequencies:
-  f600:
+  sp_f600:
     units: 'Jy^2'
     eff_freq:
       cib: 600.0
@@ -12,7 +14,7 @@ frequencies:
       EP_em: './tabulated/em_EP_SPIRE_600.txt'
       LP_em: './tabulated/em_LP_SPIRE_600.txt'
     cc: 0.974
-  f857:
+  sp_f857:
     units: 'Jy^2'
     eff_freq:
       cib: 857.0
@@ -20,7 +22,7 @@ frequencies:
       EP_em: './tabulated/em_EP_SPIRE_857.txt'
       LP_em: './tabulated/em_LP_SPIRE_857.txt'
     cc: 0.989
-  f1200:
+  sp_f1200:
     units: 'Jy^2'
     eff_freq:
       cib: 1200.0
@@ -32,7 +34,10 @@ frequencies:
 parameters:
   cosmology:
     T_CMB: 2.725
-    c: 299792458.e-3
+    tau: 0.0544
+    ns: 0.9649
+    As: 2.101e-9
+    pivot_scalar: 0.05
     matter_PS: './tabulated/matterPS_Planck18.txt'
     user_matterPS:
   fixed:
@@ -50,17 +55,17 @@ parameters:
     LogMmin_LP: 10.8
   power_spectra:
     shot_noise:
-      SN_f600: 2479
-      SN_f857: 6205
-      SN_f1200: 9833
+      SN_sp_f600: 2479
+      SN_sp_f857: 6205
+      SN_sp_f1200: 9833
     correlations:
-      corr_f600_f600: 1.0
-      corr_f600_f857: 1.0
-      corr_f600_f1200: 1.0
-      corr_f857_f857: 1.0
-      corr_f857_f1200: 1.0
-      corr_f1200_f1200: 1.0
+      corr_sp_f600_sp_f600: 1.0
+      corr_sp_f600_sp_f857: 1.0
+      corr_sp_f600_sp_f1200: 1.0
+      corr_sp_f857_sp_f857: 1.0
+      corr_sp_f857_sp_f1200: 1.0
+      corr_sp_f1200_sp_f1200: 1.0
     calibrations:
-      cal_f600: 1.0
-      cal_f857: 1.0
-      cal_f1200: 1.0
+      cal_sp_f600: 1.0
+      cal_sp_f857: 1.0
+      cal_sp_f1200: 1.0

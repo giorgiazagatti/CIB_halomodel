@@ -1,10 +1,12 @@
 options:
-    read_matterPS: True
-    normalization: 0 #if ==0, ps in Cls; if ==1, ps in Dls
+    read_matterPS: True #if True, reads pre-computed linear matter PS
+                        #if False, computes the linear matter PS using CAMB
+    normalization: 0    #if ==0, power spectra in Cls
+                        #if ==1, ps in Dls
     redshift: './tabulated/redshift.txt'
 
 frequencies:
-  f353:
+  len_f353:
     units: 'Jy^2'
     eff_freq:
       cib: 353 
@@ -12,7 +14,7 @@ frequencies:
     emissivity:
       EP_em: './tabulated/em_EP_Planck_353.txt'
       LP_em: './tabulated/em_LP_Planck_353.txt'  
-  f545:
+  len_f545:
     units: 'Jy^2'
     eff_freq:
       cib: 545 
@@ -20,7 +22,7 @@ frequencies:
     emissivity:
       EP_em: './tabulated/em_EP_Planck_545.txt'
       LP_em: './tabulated/em_LP_Planck_545.txt'
-  f857:
+  len_f857:
       units: 'Jy^2'
       eff_freq:
         cib: 857 
@@ -32,7 +34,10 @@ frequencies:
 parameters:
   cosmology:
     T_CMB: 2.725
-    c: 299792458.e-3
+    tau: 0.0544
+    ns: 0.9649
+    As: 2.101e-9
+    pivot_scalar: 0.05
     matter_PS: './tabulated/matterPS_Planck18.txt'
     user_matterPS:
   fixed:
@@ -50,17 +55,17 @@ parameters:
     LogMmin_LP: 10.8
   power_spectra:
     shot_noise:
-      SN_f353: 225
-      SN_f545: 1454
-      SN_f857: 5628
+      SN_len_f353: 225
+      SN_len_f545: 1454
+      SN_len_f857: 5628
     correlations:
-      corr_f353_f353: 1.0 
-      corr_f353_f545: 1.0 
-      corr_f353_f857: 1.0
-      corr_f545_f545: 1.0
-      corr_f545_f857: 1.0
-      corr_f857_f857: 1.0
+      corr_len_f353_len_f353: 1.0 
+      corr_len_f353_len_f545: 1.0 
+      corr_len_f353_len_f857: 1.0
+      corr_len_f545_len_f545: 1.0
+      corr_len_f545_len_f857: 1.0
+      corr_len_f857_len_f857: 1.0
     calibrations:
-      cal_f353: 1.0
-      cal_f545: 1.0
-      cal_f857: 1.0
+      cal_len_f353: 1.0
+      cal_len_f545: 1.0
+      cal_len_f857: 1.0
