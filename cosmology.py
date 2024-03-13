@@ -4,7 +4,7 @@ import numpy as np
 cosmo     = Planck18
 
 #set physical constants
-c  = 299792458
+c  = 299792458.e-3
 
 class cosmo_param:
     def __init__(self, redshift, cosmological_param, cosmo):
