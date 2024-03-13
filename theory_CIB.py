@@ -75,9 +75,9 @@ h, dV_dz = cosmo_param.compute_params()
 if read_matterPS == True:
     k_array, Pk_array = cosmo_param.read_matter_PS()
 else:
-    compute_PS = matter_PS.lin_matter_PS()
-    k_array = compute_PS()[0]
-    Pk_array = cosmo_PS()[2]
+    compute_PS = matter_PS(redshift, h, cosmo_param, cosmological_param)
+    k_array = compute_PS.lin_matter_PS()[0]
+    Pk_array = compute_PS.lin_matter_PS()[2]
 
 
 #----------------------------------------------------------------------------------------------------------------------------
@@ -138,10 +138,6 @@ def CIB_powerspectrum(clust_param, PS_param, color_corr):
         for freq2 in range(freq1, nnu):
             if 'corr_'+names[freq1]+'_'+names[freq2] in corr_param:
                 correlation_array.append(corr_param['corr_'+names[freq1]+'_'+names[freq2]])
-    print(len(shot_noise))
-    print(len(calibration_factors))
-    print(len(correlation_array))
-    print(correlation_array)
 
     shot_correlations = np.zeros((nnu, nnu))
     index = 0 
