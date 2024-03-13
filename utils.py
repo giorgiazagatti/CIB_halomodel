@@ -11,19 +11,6 @@ from numpy import trapz
 
 cosmo = Planck18
 
-# useful conversion factors
-eV_to_J = 1.6e-19
-cm_to_m = 1e-2
-Mpc_to_m = 3.086e22  # Mpc to m
-Km_to_m = 1e3
-
-# set physical constants
-m_e = con.electron_mass  # Kg  9.10938356e-31 Kg
-sig_T = con.physical_constants["Thomson cross section"][0]  # m^2 6.6524587158e-29
-c_light_km_s = 299792458e-3
-c_light_m_s  = 299792458
-
-
 class u_p_nfw_hmf_btSZ_bCIB:
     def __init__(self, ell, k_array, Pk_array, mh, M_tilde, redshift, delta_h):
         self.ell = ell
@@ -267,34 +254,9 @@ class u_p_nfw_hmf_btSZ_bCIB:
         b = b_0 * (1 + z) ** (-alpha)
         return A * ((s / b) ** (-a) + 1) * np.exp(-c_0 / s ** 2)
 
-    # chosen to compute dhalo wrt the critical overdensity
-    def fsigma_old(self, rad, red, zeta):
-        z = red
-        # comment the denominator as in tinker
-        dhalo = self.delta_h / cosmo.Om(z)
-        A_0 = 1.858659e-01
-        a_0 = 1.466904
-        b_0 = 2.571104
-        c_0 = 1.193958
-        A_exp = -0.14
-        # change the sign of a_exp as in Tinker
-        a_exp = -0.06
-        s = self.sigma(rad, red, zeta)
-        A = A_0 * (1 + z) ** A_exp
-        a = a_0 * (1 + z) ** a_exp
-        alpha = 10 ** (-((0.75 / np.log10(dhalo / 75.0)) ** 1.2))
-        b = b_0 * (1 + z) ** (-alpha)
-        return A * ((s / b) ** (-a) + 1) * np.exp(-c_0 / s ** 2)
-
     def dn_dm(self, red, zeta):
         rad = self.mass_to_radius()
-        # return self.fsigma(rad, red, zeta) * self.mean_density() * np.abs(self.dlns_dlnm(rad, red, zeta)) / self.mh**2
-        return (
-            self.fsigma_old(rad, red, zeta)
-            * self.mean_density()
-            * np.abs(self.dlns_dlnm(rad, red, zeta))
-            / self.mh ** 2
-        )
+        return self.fsigma(rad, red, zeta) * self.mean_density() * np.abs(self.dlns_dlnm(rad, red, zeta)) / self.mh**2
 
     def dn_dlnm(self, red, zeta):
         return self.mh * self.dn_dm(red, zeta)
@@ -341,114 +303,3 @@ class u_p_nfw_hmf_btSZ_bCIB:
         self.bias_cib = bias
         
         return bias
-
-    # compute the bias !!!! table 2 tinker et al 2010
-    def b_tSZ(self, red, zeta):
-        rad = self.mass_to_radius()
-        y = np.log10(self.delta_h)
-        A = 1.0 + 0.24 * y * np.exp(-((4.0 / y) ** 4))
-        aa = 0.44 * y - 0.88
-        B = 0.183
-        b = 1.5
-        C = 0.019 + 0.107 * y + 0.19 * np.exp(-((4.0 / y) ** 4))
-        c = 2.4
-        s = self.sigma(rad, red, zeta)
-        nuu = 1.686 / s
-        dc = 1.686  # neglecting the redshift evolution
-        return (
-            1 - (A * nuu ** aa / (nuu ** aa + dc ** aa)) + B * nuu ** b + C * nuu ** c
-        )
-
-    def compute_b_tSZ(self):
-        bias = np.zeros([len(self.redshift), len(self.mh)])
-        for zeta in range(len(self.redshift)):
-            red = self.redshift[zeta]
-            bias[zeta] = self.b_tSZ(red, zeta)
-
-        self.bias_tsz = bias
-
-        return bias
-
-    def C_func(self):  # also called P500
-        E_z = cosmo.efunc(self.redshift)  # E_z_func(red)
-        a = 1.65 * (cosmo.h / 0.7) ** 2 * E_z ** (8.0 / 3)  # redishift dependence
-        b = ((cosmo.h / 0.7) * self.M_tilde / 3e14) ** (
-            2.0 / 3 + 0.12
-        )  # mass dependence
-        C = np.outer(b, a)  # outer operator swaps dimensions
-        return C  # dim m,z final units are eV*cm**-3
-
-    def r_delta_crit(self):
-        r3 = np.zeros([len(self.M_tilde), len(self.redshift)])
-        for m in range(len(self.M_tilde)):
-            rho_crit = (
-                (cosmo.critical_density(self.redshift))
-                .to(u.Msun / u.Mpc ** 3)
-                .value
-            )
-            r3[m, :] = 3 * self.M_tilde[m] / (4 * np.pi * self.delta_h * rho_crit)
-        return r3 ** (1.0 / 3.0)
-
-    # compute ell500 = dA/r500 with dA angular diameter distance
-    def ell_delta(self):
-        r_delta = self.r_delta_crit()
-        return (
-            cosmo.angular_diameter_distance(self.redshift).value
-            / self.r_delta_crit()
-        )
-
-    def FT_Pe(self):
-        P_0 = 6.41
-        r500 = self.r_delta_crit() * Mpc_to_m  # convert units
-        l500 = self.ell_delta()
-        C = self.C_func() * (eV_to_J / cm_to_m ** 3)
-        ell_over_l500 = self.ell / l500[:, :, None]
-
-        # load precomputed yell
-        y = np.logspace(-6.5, 4.8, 50)
-        yell = np.loadtxt("./tabulated/yell.txt")
-
-        f_y_ell = interpolate.interp1d(
-            y, yell, kind="quadratic", bounds_error=False, fill_value="extrapolate"
-        )
-        y_ell_new = np.zeros([len(self.ell), len(self.redshift), len(self.M_tilde)])
-        for l in range(len(self.ell)):
-            for z in range(len(self.redshift)):
-                y_ell_new[l, z, :] = f_y_ell(ell_over_l500[:, z, l])
-
-        a = (sig_T / (m_e * c_light_m_s ** 2)) * (4 * np.pi * r500 / l500 ** 2)
-        FT_Pe = np.zeros([len(self.mh), len(self.redshift), len(self.ell)])
-        for l in range(len(self.ell)):
-            FT_Pe[:, :, l] = C * P_0 * a * y_ell_new[l, :, :].T
-
-        self.y_ell = FT_Pe
-        return 
-
-
-# ---------------------------------------------------------------------------------------------
-# to compute yell
-# def y_ell_func_P13(x, y):
-# 	c_500 = 1.81
-# 	gamma = 0.31
-# 	alpha = 1.33
-# 	beta = 4.13
-# 	alphap = 0.12
-# 	a = (c_500*x)**-gamma
-# 	b = (1+(c_500*x)**alpha)**((gamma-beta)/alpha)
-# 	Px_over_P0 = x**2*a*b*np.sin(x*y)/(x*y)
-# 	return Px_over_P0
-#
-# print (x, y, y_ell_func_P13(x, y))
-#
-# def integration(y):
-# 	yell_temp = scipy.integrate.romberg(lambda x: y_ell_func_P13(x, y), 1.e-7, 20.,divmax=100,tol=1e-15)
-# 	return yell_temp
-#
-# def compute_yell(y):
-# 	yell = np.zeros(len(y))
-# 	for yy in range(len(y)):
-# 		var = y[yy]
-# 		yell[yy] = integration(var)
-# 	return yell
-
-# print (compute_yell(y))
