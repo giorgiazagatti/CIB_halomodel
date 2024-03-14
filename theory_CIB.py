@@ -23,6 +23,7 @@ with open("paramfile_Planck.yaml") as f:
 read_matterPS = settings['options']['read_matterPS']
 normalization = settings['options']['normalization']
 redshift_path = settings['options']['redshift']
+ell_range     = settings['options']['ell_range']
 redshift      = np.loadtxt(redshift_path)
 
 # set the normalization
@@ -68,7 +69,9 @@ clust_param         = param['clustering']
 PS_param            = param['power_spectra']
 
 #compute cosmological parameters, matter power spectrum
-cosmo_param = cosmo_param(redshift, cosmological_param, cosmo)
+default_lin_matter_PS = './tabulated/matterPS_Planck18.txt'
+
+cosmo_param = cosmo_param(redshift, cosmological_param, cosmo, default_lin_matter_PS)
 
 h, dV_dz = cosmo_param.compute_params()
 
@@ -88,8 +91,8 @@ logmass = np.arange(2, 15, 0.1)
 mh      = 10 ** logmass / (h ** -1)
 
 # set ell range
-ell_min = 1
-ell_max = 2000
+ell_min = ell_range['ell_min']
+ell_max = ell_range['ell_max']
 ell     = np.arange(ell_min, ell_max+1)
 lenLs   = len(ell)
 

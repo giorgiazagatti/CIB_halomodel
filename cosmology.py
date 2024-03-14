@@ -7,10 +7,11 @@ cosmo     = Planck18
 c  = 299792458.e-3
 
 class cosmo_param:
-    def __init__(self, redshift, cosmological_param, cosmo):
-        self.redshift           = redshift
-        self.cosmological_param = cosmological_param
-        self.cosmo              = cosmo
+    def __init__(self, redshift, cosmological_param, cosmo, default_lin_matter_PS):
+        self.redshift              = redshift
+        self.cosmological_param    = cosmological_param
+        self.cosmo                 = cosmo
+        self.default_lin_matter_PS = default_lin_matter_PS
         
         self.compute_params()
 
@@ -36,10 +37,10 @@ class cosmo_param:
         return h, dV_dz
 
     def read_matter_PS(self):
-        user_matterPS = self.cosmological_param['user_matterPS']
-        if user_matterPS is None:
-            print('Using pre-computed linear matter power spectrum with CAMB')
-            matter_PS = np.loadtxt(self.cosmological_param['matter_PS'])
+        #matterPS = self.cosmological_param['matterPS']
+        if self.cosmological_param['matter_PS'] is None:
+            print('Using default linear matter power spectrum with CAMB')
+            matter_PS = np.loadtxt(self.default_lin_matter_PS)
             k_array_T = matter_PS[:,0]
             k_array   = np.transpose(k_array_T)
 
@@ -47,6 +48,6 @@ class cosmo_param:
             Pk_array   = np.transpose(Pk_array_T)
         else:
             print('Using external linear matter power spectrum provided by the user')
-            k_array, Pk_array = np.loadtxt(user_matterPS)
+            k_array, Pk_array = np.loadtxt(self.cosmological_param['matter_PS'])
 
         return k_array, Pk_array
