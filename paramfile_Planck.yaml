@@ -3,7 +3,7 @@ options:
                         #if False, computes the linear matter PS using CAMB
     normalization: 0    #if ==0, power spectra in Cls
                         #if ==1, ps in Dls
-    ell_range:
+    ell_range:          #set the minimum and the maximum ell for the CIB power spectra computation
       ell_min: 1
       ell_max: 2000
     redshift: './tabulated/redshift.txt'

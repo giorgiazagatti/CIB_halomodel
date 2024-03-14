@@ -3,8 +3,12 @@ options:
                         #if False, computes the linear matter PS using CAMB
     normalization: 0    #if ==0, power spectra in Cls
                         #if ==1, ps in Dls
+    ell_range:          #set the minimum and the maximum ell for the CIB power spectra computation
+      ell_min: 1
+      ell_max: 2000
     redshift: './tabulated/redshift.txt'
 
+#Features of L19 data
 frequencies:
   len_f353:
     units: 'Jy^2'
@@ -38,8 +42,7 @@ parameters:
     ns: 0.9649
     As: 2.101e-9
     pivot_scalar: 0.05
-    matter_PS: './tabulated/matterPS_Planck18.txt'
-    user_matterPS:
+    matter_PS: 
   fixed:
     T_CMB: 2.725
     nu0_dust: 153.8
