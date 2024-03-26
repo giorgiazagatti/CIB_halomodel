@@ -40,7 +40,7 @@ In this first block of the parameter file, the user can modify how to deal with 
     ```bash
     read_matterPS: False
     ```
-  and the linear matter power spectrum is computed by the code with CAMB.
+    and the linear matter power spectrum is computed by the code with CAMB.
   - Use a linear matter power spectrum provided by the user. In this case, the user has to set the flag at *True*, and insert the path to his matter power spectrum in the third block of the parameter file, and specifically, in the label 'matter_PS':
     ```bash
     parameters:
