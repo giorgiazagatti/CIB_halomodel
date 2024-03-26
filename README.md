@@ -70,3 +70,19 @@ In this first block of the parameter file, the user can modify how to deal with 
   Default values are set for the different datasets.
 - *Redshift*: path to the redshifts for the analysis.
 
+### Frequencies
+
+The second block contains the information related to each experiment. Specifically:
+- the frequency channels of the experiment/dataset;
+- the units of the CIB power spectra of the dataset. The default option is $Jy^2$ for all the parameter files, however it is also possible to compute the power spectra in $\mu K^2$ changing:
+  ```bash
+    units: 'Jy^2'
+  ```
+  in:
+  ```bash
+    units: 'muK^2'
+  ```
+- the effective frequency for the CIB emission;
+- the color correction for each frequency channel.
+
+### Paramters
