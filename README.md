@@ -83,6 +83,13 @@ The second block contains the information related to each experiment. Specifical
     units: 'muK^2'
   ```
 - the effective frequency for the CIB emission;
-- the color correction for each frequency channel.
+- the color corrections for each frequency channel.
 
 ### Paramters
+
+The third block allows the user to act on both the cosmological parameters and the ones of the model and it is divided into four sub-blocks.
+
+- *Cosmological paramters*: if the user wants to compute the linear matter power spectrum using CAMB and a different cosmology or, if the user wants to use his own linear matter power spectrum, he has to modify these parameters or provide for the path to his linear matter power spectrum.
+- *Fixed parameters*: paramters used for the computation of the CIB power spectrum.
+- *Clustering parameters*: paramters of the halo occupation distribution for early- and late-type galaxies.
+- *Power spectra parameters*: calibration factors, correlation coefficients and shot noise levels for the different frequency channels.
