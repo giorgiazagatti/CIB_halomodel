@@ -4,7 +4,7 @@ options:
     normalization: 0    #if ==0, power spectra in Cls
                         #if ==1, ps in Dls
     ell_range:          #set the minimum and the maximum ell for the CIB power spectra computation
-      ell_min: 700
+      ell_min: 600
       ell_max: 11000
     redshift: './tabulated/redshift.txt'
 
