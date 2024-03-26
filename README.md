@@ -61,4 +61,12 @@ In this first block of the parameter file, the user can modify how to deal with 
     normalization: 1 
     ```
   the CIB power spectra are computed in $D_\ell$'s.
+- *Multipole range*: to set the minimum and the maximum multipoles to compute the CIB power spectra.
+    ```bash
+    ell_range:          #set the minimum and the maximum ell for the CIB power spectra computation
+      ell_min: 1
+      ell_max: 2000 
+    ```
+  Default values are set for the different datasets.
+- *Redshift*: path to the redshifts for the analysis.
 
