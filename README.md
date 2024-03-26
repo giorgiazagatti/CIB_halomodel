@@ -56,9 +56,9 @@ In this first block of the parameter file, the user can modify how to deal with 
     ```bash
     normalization: 0 
     ```
-the resulting power spectra are computed in $C_\ell$'s, otherwise, if
+  the resulting power spectra are computed in $C_\ell$'s, otherwise, if
     ```bash
     normalization: 1 
     ```
-the CIB power spectra are computed in $D_\ell$'s.
+  the CIB power spectra are computed in $D_\ell$'s.
 
