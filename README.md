@@ -85,7 +85,7 @@ The second block contains the information related to each experiment. Specifical
 - the effective frequency for the CIB emission;
 - the color corrections for each frequency channel.
 
-### Paramters
+### Parameters
 
 The third block allows the user to act on both the cosmological parameters and the ones of the model and it is divided into four sub-blocks.
 
