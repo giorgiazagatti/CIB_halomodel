@@ -15,6 +15,7 @@ cd CIB_halomodel
 
 ## How to use
 
+This repository contains three parameter files correspondent to the three datasets employed in the study. The user can create the his own parameter file using the same structure (and detailed below). Once the parameter file is set and selected in the module <u>theory_CIB.py</u>, the latter will provide the CIB power spectrum in a file.txt with dimension (n,m) where *n* is the number of frequency auto- and cross-spectra, and *m* is the number of multipoles in the analysis.
 
 
 ## Parameters description
