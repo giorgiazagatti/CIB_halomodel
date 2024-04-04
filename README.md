@@ -26,6 +26,12 @@ This repository contains three parameter files correspondent to the three datase
 with open("paramfile_Planck.yaml") as f:
     settings = yaml.load(f, Loader=SafeLoader)
 ```
+Once everything is set, to obtain the CIB power spectrum just run:
+
+```bash
+%run theory_CIB.py
+```
+Examples about the visualization of the results are provided in this repository.
 
 ## Parameters description
 
