@@ -48,7 +48,7 @@ In the following we provide for a description of each block of the parameter fil
 In this first block of the parameter file, the user can modify how to deal with the matter power spectrum, the different normalization of the power spectra, the multipole range in which the user wants to compute the CIB power spectra and the redshift.
 
 - *Linear matter power spectrum*. The user can choose between three different options:
-  - Use the tabulated matter power spectrum used in this study. This has been computed with CAMB, using the *Planck18* cosmology. To choose this option, set:
+  - Use the tabulated matter power spectrum employed in the study. This has been computed with CAMB, using the *Planck18* cosmology. To choose this option, set:
     ```bash
     read_matterPS: True
     ```
