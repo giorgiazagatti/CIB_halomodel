@@ -53,7 +53,6 @@ class freq_dep:
             )
             j_nu_EP_step[nu_temp, :] = f_j_nu(z)
             nu_temp = nu_temp + 1
-        print(j_nu_EP_step[0,:])
 
         j_nu_LP_step = np.zeros([len(self.effective_freq), len(self.redshift)])
         nu_temp = 0

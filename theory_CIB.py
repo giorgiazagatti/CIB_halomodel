@@ -190,3 +190,4 @@ def CIB_powerspectrum(clust_param, PS_param, color_corr):
     return cib
 
 cl_cib = CIB_powerspectrum(clust_param, PS_param, color_corr)
+np.savetxt('./outputs/cl_CIB_lmin'+str(ell_min)+'_lmax'+str(ell_max)+'.txt', cl_cib)
