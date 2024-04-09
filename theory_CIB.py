@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import numpy as np
+import pandas as pd
 import yaml
 from yaml import SafeLoader
 from utils import *
@@ -190,4 +191,14 @@ def CIB_powerspectrum(clust_param, PS_param, color_corr):
     return cib
 
 cl_cib = CIB_powerspectrum(clust_param, PS_param, color_corr)
-np.savetxt('./outputs/cl_CIB_lmin'+str(ell_min)+'_lmax'+str(ell_max)+'.txt', cl_cib)
+
+#Save data in file.csv
+headers = []
+for nu1 in range(nnu):
+    for nu2 in range(nu1,nnu):
+        headers.append(names[nu1]+'x'+names[nu2])
+
+headers = headers[:cl_cib.shape[1]]
+
+df_cib     = pd.DataFrame(cl_cib.T, columns=headers[:cl_cib.T.shape[1]])
+df_cib.to_csv('./outputs/cl_cib_ellmin'+str(ell_min)+'_ellmax'+str(ell_max)+'.csv', index=False)
