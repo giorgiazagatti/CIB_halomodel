@@ -27,6 +27,12 @@ redshift_path = settings['options']['redshift']
 ell_range     = settings['options']['ell_range']
 redshift      = np.loadtxt(redshift_path)
 
+# set ell range
+ell_min = ell_range['ell_min']
+ell_max = ell_range['ell_max']
+ell     = np.arange(ell_min, ell_max+1)
+lenLs   = len(ell)
+
 # set the normalization
 if normalization == 1:
     facto = ell * (ell + 1) / (2 * np.pi)  # Dls
@@ -90,12 +96,6 @@ else:
 # set mass range
 logmass = np.arange(2, 15, 0.1)
 mh      = 10 ** logmass / (h ** -1)
-
-# set ell range
-ell_min = ell_range['ell_min']
-ell_max = ell_range['ell_max']
-ell     = np.arange(ell_min, ell_max+1)
-lenLs   = len(ell)
 
 # set the mass overdensity
 delta_200 = 200
