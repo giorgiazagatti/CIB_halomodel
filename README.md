@@ -2,7 +2,8 @@
 
 This repository contains the code implemented and used in:
 
-*TITLE PAPER and AUTHORS*
+*A halo model approach to describe clustering and emission of the two main star-forming galaxy populations for Cosmic Infrared Background studies*,
+G. Zagatti, E. Calabrese, C. Chiocchetta, M. Gerbino, M. Negrello, L. Pagano
 
 ## Installation
 
