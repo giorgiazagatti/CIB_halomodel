@@ -1,6 +1,4 @@
 import numpy as np
-from scipy import special
-from scipy import interpolate
 from numpy import trapz
 
 
