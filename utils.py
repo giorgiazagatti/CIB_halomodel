@@ -4,7 +4,6 @@ import scipy.integrate
 from scipy import interpolate
 from scipy.interpolate import InterpolatedUnivariateSpline as _spline
 from scipy import special
-import scipy.constants as con
 from astropy.cosmology import Planck18
 import astropy.units as u
 from numpy import trapz
@@ -59,7 +58,7 @@ class u_p_nfw_hmf_btSZ_bCIB:
         lnk = np.log(k)
         uW = self.W(rk)
         integ = rest * uW ** 2
-        sigm = (0.5 / np.pi ** 2) * scipy.integrate.simps(integ, x=lnk, axis=-1)
+        sigm = (0.5 / np.pi ** 2) * scipy.integrate.simpson(integ, x=lnk, axis=-1)
         return np.sqrt(sigm)
 
     # sigma depends on z from the linear power spectrum
@@ -163,7 +162,7 @@ class u_p_nfw_hmf_btSZ_bCIB:
         inte = w * dw * rest
         lnk = np.log(k)
         s = self.sigma(rad, red, zeta)
-        return scipy.integrate.simps(inte, x=lnk, axis=-1, even="avg") / (
+        return scipy.integrate.simpson(inte, x=lnk, axis=-1) / (
             np.pi ** 2 * s ** 2
         )
 
